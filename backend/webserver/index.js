@@ -10,16 +10,10 @@ const staticRoot = path.join(__dirname, "public/static/");
 app.use(express.static(staticRoot));
 const upload = multer();
 
-app.use((req, res, next) => {
+app.get("/", (req, res) => {
   res.sendFile(path.join(staticRoot, "index.html"));
-  next();
 });
-// app.get("/", (req, res) => {
-//   res.json({ hello: "hello" });
-// });
-app.get("/api/fileanalyse", (req, res) => {
-  res.json({ hello: "hahah" });
-});
+
 app.post("/api/fileanalyse", upload.single("upfile"), (req, res) => {
   const result = {
     name: req.file.originalname,
